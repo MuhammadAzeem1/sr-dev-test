@@ -29,6 +29,7 @@ namespace DevTest.Droid.NetworkName
             {
                 var connectivityManager = (ConnectivityManager)Android.App.Application.Context.GetSystemService(Context.ConnectivityService);
                 NetworkInfo networkInfo = connectivityManager.GetNetworkInfo(ConnectivityType.Wifi);
+                
                 if (networkInfo.IsConnected)
                 {
 
@@ -54,6 +55,7 @@ namespace DevTest.Droid.NetworkName
                 }
                 else
                 {
+                    StaticClass.NetworkName = "Cellular";
                     return StaticClass.NetworkName; 
                 }
             }

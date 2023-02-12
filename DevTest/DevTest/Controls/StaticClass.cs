@@ -7,5 +7,6 @@ namespace DevTest.Controls
     public static class StaticClass
     {
         public static string NetworkName = "";
+        public static string UserName = "";
     }
 }

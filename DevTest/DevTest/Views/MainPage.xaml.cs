@@ -22,11 +22,11 @@ namespace DevTest.Views
         public MainPage()
         {
             InitializeComponent();
-            string srvrdbname = "mydb";
-            string srvrname = "192.168.1.73";
-            string srvrusername = "samir";
-            string srvrpassword = "123456";
-            string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrdbname};User ID={srvrusername};Password={srvrpassword}";
+            string srvrdbname = "DevTest";
+            string srvrname = "192.168.10.5";
+            string pass = "123";
+            string  name = "ghulam";
+            string sqlconn = $"Data Source={srvrname};Initial Catalog={srvrdbname};User ID={name};Password={pass}";       
             sqlConnection = new SqlConnection(sqlconn);
         }
 
@@ -50,26 +50,27 @@ namespace DevTest.Views
             }
            
         }
-        private void NextBtn_Clicked(object sender, EventArgs e)
+        private async void NextBtn_Clicked(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    sqlConnection.Open();
-            //    using (SqlCommand command = new SqlCommand("INSERT INTO dbo.mytable VALUES(@Id, @Title , @Body)", sqlConnection))
-            //    {
-            //        command.Parameters.Add(new SqlParameter("Id", UserId.Text));
-            //        command.Parameters.Add(new SqlParameter("Title", UserTitle.Text));
-            //        command.Parameters.Add(new SqlParameter("Body", UserBody.Text));
-            //        command.ExecuteNonQuery();
-            //    }
-            //    sqlConnection.Close();
-            //    await App.Current.MainPage.DisplayAlert("Alert", "Congrats you just posted data", "Ok");
-            //}
-            //catch (Exception ex)
-            //{
-            //    await App.Current.MainPage.DisplayAlert("Alert", ex.Message, "Ok");
-            //    throw;
-            //}
+            try
+            {
+               
+                sqlConnection.Open();
+                using (SqlCommand command = new SqlCommand("INSERT INTO dbo.InfoTable VALUES(@Code , @NetworkName)", sqlConnection))
+                {
+                    //command.Parameters.Add(new SqlParameter("ID", id));
+                    command.Parameters.Add(new SqlParameter("Code", userCode.Text));
+                    command.Parameters.Add(new SqlParameter("NetworkName", NetworkName.Text));
+                    command.ExecuteNonQuery();
+                }
+                sqlConnection.Close();
+                await DisplayAlert("Alert", "Congrats you just posted data", "Ok");
+                await Navigation.PushAsync(new ConfirmationPage());
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Alert", ex.Message, "Ok");              
+            }
 
         }
 
