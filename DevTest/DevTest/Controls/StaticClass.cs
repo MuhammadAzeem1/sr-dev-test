@@ -8,5 +8,6 @@ namespace DevTest.Controls
     {
         public static string NetworkName = "";
         public static string UserName = "";
+        public static string UserCode = "";
     }
 }
